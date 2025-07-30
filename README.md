@@ -1,6 +1,6 @@
 # STEP: Scalable Higher-Order Interaction Prediction on Trillion-scale Tensors via Entity Pruning
 
-This repository is the implementation for "STEP: Scalable Higher-Order Interaction Prediction on Trillion-scale Tensors via Entity Pruning", submitted to VLDB 2026.
+This repository is the implementation for "STEP: Scalable Higher-Order Interaction Prediction on Trillion-scale Tensors via Entity Pruning", submitted to KDD 2026 (August Cycle).
 
 ## Code Information
 We provide the four datasets used in our paper: SG, DDS, Gowalla, and Yahoo datasets.
