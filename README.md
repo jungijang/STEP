@@ -3,9 +3,6 @@
 This repository is the implementation for "STEP: Scalable Higher-Order Interaction Prediction on Trillion-scale Tensors via Entity Pruning", submitted to KDD 2026 (August Cycle).
 
 ## Code Information
-We provide the four datasets used in our paper: SG, DDS, Gowalla, and Yahoo datasets.
-The detailed description is in our paper.
-
 All codes are implemented by PyTorch.
 This repository contains the code for STEP.
 
@@ -42,9 +39,7 @@ pip install -r requirements.txt
 
 Currently, we provide the demo codes for SG dataset.
 You can change a model by modifying the code in the lines where the model is defined in the `main` codes.
-If you are interested in other datasets, you can first [download the data.zip file](https://drive.google.com/file/d/10ap-mEmX0_N2njYJelHh7vUe9BI9jAgs/view?usp=sharing), unzip it, and modify the code accordingly.
 To run a demo of our proposed model, you run the code with the following command:
-
 * run the code for base models (e.g., CP and Tucker decomposition) on SG dataset.
 ```
 python main_sg_base.py
