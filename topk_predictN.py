@@ -20,7 +20,7 @@ def topk_predict(model, num_entities, block_size, topk, train_data_array, alpha,
     indices_list = [torch.arange(0, num_entities[d]).to(DEVICE) for d in range(n)]
     sorted_indices_list = [torch.argsort(embeddings[d], dim=-1, descending=True) for d in range(n)]
     
-    norm_list = [embeddings[d] for d in range(n)]  # 각 임베딩의 값 (또는 norm 값)
+    norm_list = [embeddings[d] for d in range(n)]
 
     num_indices = block_size
     blocks_list = [math.ceil(sorted_indices_list[d].shape[0] / num_indices) for d in range(n)]  
@@ -161,8 +161,8 @@ def precision_recall2(queue, answer, k):
 
     
     mask = torch.isin(idx, torch.where(counts.gt(1))[0])
-    mask1 = mask[:len(answer)]  # tensor([ True, False,  True], device='cuda:0')
-    mask2 = mask[len(answer):]  # tensor([ True, False, False,  True], device='cuda:0')
+    mask1 = mask[:len(answer)]  
+    mask2 = mask[len(answer):]  
     precision = mask2[:k].sum().item()/k
     recall = mask2.sum().item()/answer.shape[0]
 
@@ -177,8 +177,8 @@ def apk_function2(queue, answer, k):
         dim=0, return_inverse=True, return_counts=True)
     
     mask = torch.isin(idx, torch.where(counts.gt(1))[0])
-    mask1 = mask[:len(answer)]  # tensor([ True, False,  True], device='cuda:0')
-    mask2 = mask[len(answer):]  # tensor([ True, False, False,  True], device='cuda:0')
+    mask1 = mask[:len(answer)]  
+    mask2 = mask[len(answer):]  
     
     hit = 0
     apk = 0

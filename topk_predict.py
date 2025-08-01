@@ -88,8 +88,8 @@ def topk_predict(model, num_entities, block_size, topk, train_data_array, alpha,
         _, idx, counts = torch.cat((train_data_array[mask_init,:], testa), dim=0).unique(
             dim=0, return_inverse=True, return_counts=True)
         mask = torch.isin(idx, torch.where(counts.gt(1))[0])
-        mask1 = mask[:len(train_data_array[mask_init,:])]  # tensor([ True, False,  True], device='cuda:0')
-        mask2 = mask[len(train_data_array[mask_init,:]):]  # tensor([ True, False, False,  True], device='cuda:0')
+        mask1 = mask[:len(train_data_array[mask_init,:])]  
+        mask2 = mask[len(train_data_array[mask_init,:]):]  
         testa = testa[~mask2]
         num_exam += testa.shape[0]
         
@@ -172,8 +172,8 @@ def precision_recall2(queue, answer, k):
 
     
     mask = torch.isin(idx, torch.where(counts.gt(1))[0])
-    mask1 = mask[:len(answer)]  # tensor([ True, False,  True], device='cuda:0')
-    mask2 = mask[len(answer):]  # tensor([ True, False, False,  True], device='cuda:0')
+    mask1 = mask[:len(answer)]  
+    mask2 = mask[len(answer):]  
     precision = mask2[:k].sum().item()/k
     recall = mask2.sum().item()/answer.shape[0]
 
@@ -188,8 +188,8 @@ def apk_function2(queue, answer, k):
         dim=0, return_inverse=True, return_counts=True)
     
     mask = torch.isin(idx, torch.where(counts.gt(1))[0])
-    mask1 = mask[:len(answer)]  # tensor([ True, False,  True], device='cuda:0')
-    mask2 = mask[len(answer):]  # tensor([ True, False, False,  True], device='cuda:0')
+    mask1 = mask[:len(answer)]  
+    mask2 = mask[len(answer):]  
     
     hit = 0
     apk = 0

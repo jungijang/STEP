@@ -39,7 +39,7 @@ def topk_predict_lazy_best_first(model, num_entities, topk, train_data_array, al
 
         if len(result) < topk or score > result[-1][0]:
             result.append((score, u_block, i_block, t_block))
-            result.sort(reverse=True, key=lambda x: x[0])  # Sort by score
+            result.sort(reverse=True, key=lambda x: x[0]) 
             
             if len(result) > topk:
                 result.pop()
@@ -103,8 +103,8 @@ def precision_recall2(queue, answer, k):
 
     
     mask = torch.isin(idx, torch.where(counts.gt(1))[0])
-    mask1 = mask[:len(answer)]  # tensor([ True, False,  True], device='cuda:0')
-    mask2 = mask[len(answer):]  # tensor([ True, False, False,  True], device='cuda:0')
+    mask1 = mask[:len(answer)]  
+    mask2 = mask[len(answer):]  
     precision = mask2[:k].sum().item()/k
     recall = mask2.sum().item()/answer.shape[0]
 
@@ -119,8 +119,8 @@ def apk_function2(queue, answer, k):
         dim=0, return_inverse=True, return_counts=True)
     
     mask = torch.isin(idx, torch.where(counts.gt(1))[0])
-    mask1 = mask[:len(answer)]  # tensor([ True, False,  True], device='cuda:0')
-    mask2 = mask[len(answer):]  # tensor([ True, False, False,  True], device='cuda:0')
+    mask1 = mask[:len(answer)]  
+    mask2 = mask[len(answer):]  
     
     hit = 0
     apk = 0

@@ -7,6 +7,10 @@ from torch.func import stack_module_state
 from scipy.sparse import coo_matrix
 import numpy as np
 
+# Code adapted from the implementation
+# in "Neural additive tensor decomposition for sparse tensors"
+# [Ahn, Dawon, et al., CIKM 2024]
+# Available at: https://github.com/dawonahn/NeAT
 
 class MLP(nn.Module):
     def __init__(self, dims, act='ReLU'):
@@ -56,10 +60,6 @@ class SNeAT(nn.Module):
             nn.init.uniform_(self.embeds[i].weight.data)
 
     def make_mlps(self):
-        '''
-        Bath operation with mlp
-        Speed up operation on neural networks to avoid loops in forward propagation
-        '''
         mlps = nn.ModuleList([MLP(self.layer_dims, act=self.cfg.act).to(self.cfg.device)
                                     for _ in range(self.rank)])
         params, _ = stack_module_state(mlps)
@@ -68,16 +68,10 @@ class SNeAT(nn.Module):
 
 
     def _normalize(self):
-        '''
-        Normalize each rank-1 factors.
-        '''
         for i in range(len(self.embeds)):
             self.embeds[i].weight.data = F.normalize(self.embeds[i].weight.data)
             
     def calc(self, x):
-        '''
-        Rank-wise matmul.
-        '''
         angle_weight = 0
         for d in range(self.cfg.depth-1):
             if d == self.cfg.depth-2:
@@ -92,10 +86,6 @@ class SNeAT(nn.Module):
         return x, angle_weight
     
     def forward(self, idxs):
-        '''
-        idxs: COO type indices (batch x nmode)
-        '''
-
         embeds = [1+self.softplus(self.agg5(self.embeds[i](idxs[i]))).squeeze(dim=-1)
                 for i in range(len(self.sizes))]
         
@@ -165,10 +155,6 @@ class NeAT(nn.Module):
             nn.init.uniform_(self.embeds[i].weight.data)
 
     def make_mlps(self):
-        '''
-        Bath operation with mlp
-        Speed up operation on neural networks to avoid loops in forward propagation
-        '''
         mlps = nn.ModuleList([MLP(self.layer_dims, act=self.cfg.act).to(self.cfg.device)
                                     for _ in range(self.rank)])
         params, _ = stack_module_state(mlps)
@@ -176,16 +162,10 @@ class NeAT(nn.Module):
         self.bias = nn.ParameterList([params[k] for k in params.keys() if k.endswith('bias')])
 
     def _normalize(self):
-        '''
-        Normalize each rank-1 factors.
-        '''
         for i in range(len(self.embeds)):
             self.embeds[i].weight.data = F.normalize(self.embeds[i].weight.data)
             
     def calc(self, x):
-        '''
-        Rank-wise matmul.
-        '''
         for d in range(self.cfg.depth-1):
             x = x @ self.weight[d].permute(0, 2, 1) # transpose
             x = x + self.bias[d].unsqueeze(1)
@@ -195,9 +175,6 @@ class NeAT(nn.Module):
         return x
     
     def forward(self, idxs):
-        '''
-        idxs: COO type indices (batch x nmode)
-        '''
 
         embeds = [self.embeds[i](idxs[i]).permute(1, 0).unsqueeze(-1)
                 for i in range(len(self.sizes))]
