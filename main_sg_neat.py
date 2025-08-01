@@ -84,7 +84,7 @@ def main():
         cfg.dropout =  0
         cfg.dropout2 =  0
         cfg.device = DEVICE          
-        # Hyperparamete
+        # Hyperparameter
 
         model_name = 'NeAT'
 

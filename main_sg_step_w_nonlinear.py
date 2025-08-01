@@ -154,8 +154,6 @@ def main():
 
                 pred_neg, pred_neg_angle = model(neg_set[:,0], neg_set[:,1], neg_set[:,2])
                 pred, pred_angle = model(i, j, k)
-                # pos_angle2 = model.angle2(i, j, k)
-                # pred_res[:, -1] = pred
 
                 bpr_loss = 0
                 pos_term = pred * pred_angle
