@@ -30,13 +30,13 @@ class TensorDataset(Dataset):
 
 def main():
     path = './data/sg'
-    df_train = pd.read_csv(os.path.join(path,'train_indices.txt'), header=None, sep=' ')
-    df_valid = pd.read_csv(os.path.join(path,'valid_indices.txt'), header=None, sep=' ')
-    df_test = pd.read_csv(os.path.join(path,'test_indices.txt'), header=None, sep=' ')
+    df_train = pd.read_csv(os.path.join(path,'train_indices.tsv'), header=None, sep='\t')
+    df_valid = pd.read_csv(os.path.join(path,'valid_indices.tsv'), header=None, sep='\t')
+    df_test = pd.read_csv(os.path.join(path,'test_indices.tsv'), header=None, sep='\t')
 
-    train_data = df_train.to_numpy()-1
-    val_data = df_valid.to_numpy()-1
-    test_data = df_test.to_numpy()-1
+    train_data = df_train.to_numpy()
+    val_data = df_valid.to_numpy()
+    test_data = df_test.to_numpy()
 
     num_users = int(max(max(train_data[:, 0]), max(test_data[:, 0])) + 1)
     num_items = int(max(max(train_data[:, 1]), max(test_data[:, 1])) + 1)
