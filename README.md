@@ -39,6 +39,8 @@ pip install -r requirements.txt
 
 Currently, we provide the demo codes for SG dataset.
 You can change a model by modifying the code in the lines where the model is defined in the `main` codes.
+If you are interested in the Gowalla or Yahoo dataset, please modify the code accordingly.
+Due to space limitations, we will upload the DDS data separately.
 To run a demo of our proposed model, you run the code with the following command:
 * run the code for base models (e.g., CP and Tucker decomposition) on SG dataset.
 ```
