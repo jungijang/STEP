@@ -1,78 +1,44 @@
-# STEP: Scalable Higher-Order Interaction Prediction on Trillion-Scale Tensors via Entity Pruning
+# SCOUT: Coupling-Free Bounds for Trillion-Scale Top-k Retrieval in Sparse Tensor Factorization
 
-This repository is the implementation for "STEP: Scalable Higher-Order Interaction Prediction on Trillion-scale Tensors via Entity Pruning", submitted to KDD 2026 (August Cycle).
+This repository is the implementation for "SCOUT: Coupling-Free Bounds for Trillion-Scale Top-k Retrieval in Sparse Tensor Factorization", submitted to SIGMOD 2027 (Round 1).
 
 ## Code Information
 All codes are implemented by PyTorch.
-This repository contains the code for STEP.
+This repository contains the code for SCOUT.
 
-* We provide the following codes for STEP. 
-  * `model.py`: STEP + Tensor factorization model is defined. There are six original tensor factorization methods.
-    * CP: CP decomposition.
-    * SCP: CP decomposition combined with STEP.
-    * Tucker: Tucker decomposition.
-    * STucker: Tucker decomposition combined with STEP.
-    * CostCo: CostCo.
-    * SCostCo: CostCo combined with STEP.
-    * MDMTF: $M^2DMTF$.
-    * SMDMTF: $M^2DMTF$ combined with STEP.
-  * `topk_predict_base.py`: base code for top-k prediction.
-  * `topk_predict.py`: GPU friendly code for top-k prediction.
+* We provide the following codes for SCOUT. 
+  * `modelN.py`: SCOUT + Tensor factorization model is defined. There are six SCOUT + TF methods.
+    * SCPN: CP decomposition combined with SCOUT.
+    * STuckerN: Tucker decomposition combined with SCOUT.
+    * SCostCoN: CostCo combined with SCOUT.
+    * SMLPN: MLP combined with SCOUT.
+    * SNeAT: NeAT combined with SCOUT.
+    * SMDMTF: $M^2DMTF$ combined with SCOUT.
+  * `modelN_base.py`: Original tensor factorization model is defined. There are six original tensor factorization methods.
+    * CP, Tucker, CostCo, NeAT, MDMTF, MLP.
   * `topk_predictN.py`: GPU friendly code for top-k prediction for higher-order tensors.
-  * `main_sg_base.py`: the demo code for CP and Tucker decomposition on SG dataset.
-  * `main_sg_mdmtf.py`: the demo code for $M^2DMTF$ on SG dataset.  
-  * `main_sg_neat.py`: the demo code for NeAT on SG dataset.  
-  * `main_sg_step_w_multilinear.py`: the demo code for SCP and STucker on SG dataset.  
-  * `main_sg_step_w_nonlinear.py`: the demo code for SCostCo and SMLP on SG dataset.
-  * `main_sg_smdmtf.py`: the demo code for SMDMTF on SG dataset.
-  * `main_sg_sneat.py`: the demo code for SNeat on SG dataset.
+  * `nway_train.py`: the train and test code for SCOUT.
+  * `nway_train_base.py`: the train and test code for original TF methods.
 
 ## Requirements
 
 Before running demos, you need to install the requirements:
-
 ```
 pip install -r requirements.txt
 ```
 
 ## Demo
 
-Currently, we provide the demo codes for SG dataset.
-You can change a model by modifying the code in the lines where the model is defined in the `main` codes.
-If you are interested in the Gowalla or Yahoo dataset, please modify the code accordingly.
-Due to space limitations, we will upload the DDS data separately.
+Currently, we provide the demo codes for the origianl TF methods and SCOUT on Gowalla dataset.
+If you are interested in another dataset, please modify the shell accordingly.
+Due to space limitations, we have uploaded only relatively lightweight data.
 To run a demo of our proposed model, you run the code with the following command:
-* run the code for base models (e.g., CP and Tucker decomposition) on SG dataset.
+* run the code for SCOUT.
 ```
-python main_sg_base.py
-```
-
-* run the code for STEP + CP or Tucker on SG dataset.
-```
-python main_sg_step_w_multilinear.py
+bash run_scout.sh
 ```
 
-* run the code for STEP + CostCo or MLP on SG dataset.
+* run the code for the original TF methods.
 ```
-python main_sg_step_w_nonlinear.py
-```
-
-* run the code for $M^2DMTF$ on SG dataset.
-```
-python main_sg_mdmtf.py
-```
-
-* run the code for STEP + $M^2DMTF$ on SG dataset.
-```
-python main_sg_mdmtf.py
-```
-
-* run the code for NeAT on SG dataset.
-```
-python main_sg_neat.py
-```
-
-* run the code for STEP + NeAT on SG dataset.
-```
-python main_sg_sneat.py
+bash run_base.sh
 ```
