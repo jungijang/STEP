@@ -1,6 +1,6 @@
 # SCOUT: Coupling-Free Bounds for Trillion-Scale Top-k Retrieval in Sparse Tensor Factorization
 
-This repository is the implementation for "SCOUT: Coupling-Free Bounds for Trillion-Scale Top-k Retrieval in Sparse Tensor Factorization", submitted to SIGMOD 2027 (Round 1).
+This repository is the implementation for "SCOUT: Coupling-Free Bounds for Trillion-Scale Top-k Retrieval in Sparse Tensor Factorization", published in SIGMOD 2027 (Round 1).
 
 ## Code Information
 All codes are implemented by PyTorch.
